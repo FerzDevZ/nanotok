@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -9,23 +9,37 @@ description = "Ultra-high-density token compression engine and CLI toolkit for a
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "nanotok maintainers" }]
-keywords = ["llm", "tokens", "prompt-compression", "cli", "agentic", "vibecoding"]
+keywords = ["llm", "tokens", "prompt-compression", "cli", "agentic", "vibecoding", "nanotok"]
 classifiers = [
+  "Development Status :: 4 - Beta",
   "Environment :: Console",
   "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Text Processing :: Filters",
   "Topic :: Utilities",
 ]
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/FerzDevZ/nanotok"
+Repository = "https://github.com/FerzDevZ/nanotok"
+Issues = "https://github.com/FerzDevZ/nanotok/issues"
+Documentation = "https://github.com/FerzDevZ/nanotok#readme"
 
 [project.scripts]
 nanotok = "nanotok.cli:entrypoint"
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "mypy>=1.10", "ruff>=0.6"]
+dev = ["pytest>=8.0", "mypy>=1.10", "ruff>=0.6", "build>=1.2", "twine>=5.0"]
 
 [tool.setuptools]
 packages = ["nanotok"]

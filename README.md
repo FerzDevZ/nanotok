@@ -97,24 +97,66 @@ L5  Session & Agent Compactor   → pack spec, checkpoint snapshot, minified age
 
 - **Python:** ≥ 3.10 (tested with 3.14 in this environment)
 - **Runtime dependencies:** none (stdlib only)
-- **Dev/verification tools:** `pytest`, `mypy`, `ruff`
+- **Dev/verification tools:** `pytest`, `mypy`, `ruff`, `build`, `twine`
 
-### Install (editable, recommended for this repo)
+Once installed, usage is simply **`nanotok`** — no wrapper script, no config file required (defaults are validated and auto-applied).
+
+### Easiest: one-liner installer (installs `nanotok` onto your PATH)
 
 ```bash
-cd /home/firman/nanotok
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e .
+curl -fsSL https://raw.githubusercontent.com/FerzDevZ/nanotok/main/scripts/install.sh | bash
+nanotok --version
+```
+
+The installer uses **pipx** when available; otherwise it creates an isolated venv at `~/.local/share/nanotok/venv` and exposes a launcher at `~/.local/bin/nanotok`. It never touches the system Python (safe on PEP 668 “externally managed” distros) and can be re-run safely:
+
+```bash
+bash scripts/install.sh            # install (or reuse existing install)
+bash scripts/install.sh --upgrade  # force reinstall/upgrade from git
+```
+
+If `nanotok` is not found immediately afterwards, open a new terminal (or `export PATH="$HOME/.local/bin:$PATH"`) and re-check `nanotok --version`.
+
+### Recommended: `pipx` from Git (isolated, global command)
+
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath          # then open a new terminal
+pipx install git+https://github.com/FerzDevZ/nanotok.git
 
 nanotok --version
 # nanotok 3.0.0
 ```
 
-### Run without console-script install
+This is the most reliable way to get a plain `nanotok` command on every terminal without polluting a project venv.
+
+### From PyPI (once released)
 
 ```bash
-PYTHONPATH=. .venv/bin/python -m nanotok --help
+pipx install nanotok
+# or: pip install nanotok
+```
+
+Releases are published automatically by the workflow in [`.github/workflows/publish.yml`](.github/workflows/publish.yml) on `v*` tags via PyPI Trusted Publishing.
+
+### Editable install for development (this repo)
+
+```bash
+cd /home/firman/nanotok
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+
+nanotok --version
+# nanotok 3.0.0
+```
+
+### Run without installing the console script
+
+```bash
+python3 -m nanotok --help
+# from a source checkout without install:
+PYTHONPATH=. python3 -m nanotok --help
 ```
 
 ---
@@ -522,8 +564,7 @@ nanotok bench fixtures/benchmark/verbose-prd.md /tmp/p.pack.md
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e .
-pip install pytest mypy ruff
+pip install -e ".[dev]"
 ```
 
 ### Quality gates (executed in this repo)
@@ -536,6 +577,23 @@ python -m nanotok --help
 ```
 
 **Current status:** `ruff` passes, `mypy --strict` passes (15 source files), `pytest` passes (66 tests).
+
+### Build and validate a release locally
+
+```bash
+python -m build                 # writes dist/nanotok-3.0.0.tar.gz + .whl
+twine check dist/*
+```
+
+### Release process (maintainers)
+
+1. Bump `version` in `pyproject.toml` and add release notes.
+2. Commit, then tag and push the tag:
+   ```bash
+   git tag v3.0.0
+   git push origin v3.0.0
+   ```
+3. The `Publish to PyPI` workflow builds sdist/wheel and publishes via **PyPI Trusted Publishing** (OIDC, no API token stored in the repo). Configure the `pypi` environment and trusted publisher once in the PyPI project settings.
 
 ---
 
@@ -560,11 +618,14 @@ python -m nanotok --help
 │   ├── tiers.py                    # L4 tier selection and escalation triggers
 │   └── tokens.py                   # Deterministic token estimator and reports
 ├── .agents/skills/nanotok/SKILL.md # Local AgentSkills integration (nanotok protocol)
+├── .github/workflows/publish.yml   # Build + publish to PyPI on v* tags (Trusted Publishing)
+├── scripts/install.sh              # One-liner installer (pipx, PATH setup, --upgrade)
 ├── fixtures/benchmark/             # Representative benchmark corpus and sample outputs
 ├── tests/                          # Pytest suite (layers, config/templates, CLI e2e)
 ├── PLAN.md                         # Detailed build plan and module contracts
 ├── rancangan.md                    # Source design specification (v3.0)
 ├── README.md                       # This document
+├── LICENSE                         # MIT license text
 ├── MEMORY.md                       # Project invariants / learned notes
 └── pyproject.toml                  # Packaging, tool config (ruff/mypy/pytest)
 ```
@@ -583,4 +644,4 @@ python -m nanotok --help
 
 ## License
 
-MIT (see [`pyproject.toml`](pyproject.toml)).
+MIT — see [`LICENSE`](LICENSE).

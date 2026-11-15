@@ -8,3 +8,5 @@
 - **[26-? · Patching policy]**: `<50%` edits must not emit full files; `>=50%` or new files must emit full content without echo prose → **Invariant:** centralize format decision in `build_patch` using opcode-based change ratio.
 - **[26-? · CLI contract]**: Stats on stdout break pipes → **Invariant:** payload to stdout, diagnostics/stats to stderr, stable exit codes (0/2/3).
 - **[26-? · Config]**: Silent fallback hides broken compression knobs → **Invariant:** unknown keys / wrong types raise `ConfigError`; defaults are explicit and serializable.
+- **[26-11-15 · Installer]**: `pip install --user pipx` fails on Debian/Ubuntu with PEP 668 `externally-managed-environment` → **Invariant:** installers must never write to system Python; prefer pipx and fall back to an isolated venv (`~/.local/share/nanotok/venv`) with a launcher in `~/.local/bin`.
+- **[26-11-15 · Packaging]**: `tool.setuptools.license-files` is deprecated in favor of `project.license-files` on setuptools>=77 → **Invariant:** keep SPDX `license = "MIT"` plus `license-files` under `[project]`, and verify with `twine check dist/*`.
