@@ -1,0 +1,36 @@
+✖ Build failed with 2 errors
+warn  - Compiled with warnings
+  ... [repeated 2x]
+info  - Creating an optimized production build
+
+  ... [repeated 1x]
+TypeError: Cannot read properties of undefined (reading 'subscriptionId')
+    at resolveSubscription (src/lib/billing/subscription.ts:87:24)
+    at Object.handler (src/app/api/webhooks/stripe/route.ts:41:19)
+    at async Promise.all (index 0)
+  ... [3 internal library frames stripped]
+    at async Server.<anonymous> (node_modules/next/dist/server/lib/render-server.js:88:9)
+    at async /home/firman/app/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38412
+    at async AppRouteRouteModule.do (/home/firman/app/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29780)
+    at async /home/firman/app/node_modules/@sentry/nextjs/build/cjs/common/wrapRouteHandlerWithSentry.js:39:24
+
+ReferenceError: customer is not defined
+    at createInvoice (src/lib/billing/invoice.ts:55:11)
+    at Object.handler (src/app/api/invoices/route.ts:22:5)
+  ... [5 internal library frames stripped]
+    at async /home/firman/app/node_modules/next/dist/server/require.js:94:12
+    at async /home/firman/app/node_modules/next/dist/server/load-components.js:59:17
+    at async /home/firman/app/node_modules/next/dist/build/utils.js:1172:5
+    at async Span.traceAsyncFn (/home/firman/app/node_modules/next/dist/trace/trace.js:154:20)
+
+Retrying request (attempt 1/3)
+  ... [repeated 3x]
+WARN  prisma:query SELECT "public"."User"."id" FROM "public"."User" WHERE 1=1
+
+  ... [repeated 2x]
+Error: connect ECONNREFUSED 127.0.0.1:5432
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1607:16)
+  ... [2 internal library frames stripped]
+    at /home/firman/app/node_modules/pg-pool/index.js:45:11
+    at /home/firman/app/node_modules/pg/lib/client.js:132:19
+  ... [1 internal library frames stripped]

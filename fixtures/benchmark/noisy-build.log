@@ -1,0 +1,47 @@
+[31m✖[0m Build failed with 2 errors
+[33mwarn[0m  - Compiled with warnings
+[33mwarn[0m  - Compiled with warnings
+[33mwarn[0m  - Compiled with warnings
+info  - Creating an optimized production build
+info  - Creating an optimized production build
+
+TypeError: Cannot read properties of undefined (reading 'subscriptionId')
+    at resolveSubscription (src/lib/billing/subscription.ts:87:24)
+    at Object.handler (src/app/api/webhooks/stripe/route.ts:41:19)
+    at async Promise.all (index 0)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async NextNodeServer.handleCatchallRenderRequest (node_modules/next/dist/server/next-server.js:412:37)
+    at async NextNodeServer.handleRequestImpl (node_modules/next/dist/server/base-server.js:912:17)
+    at async Server.<anonymous> (node_modules/next/dist/server/lib/render-server.js:88:9)
+    at async /home/firman/app/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38412
+    at async AppRouteRouteModule.do (/home/firman/app/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29780)
+    at async /home/firman/app/node_modules/@sentry/nextjs/build/cjs/common/wrapRouteHandlerWithSentry.js:39:24
+
+ReferenceError: customer is not defined
+    at createInvoice (src/lib/billing/invoice.ts:55:11)
+    at Object.handler (src/app/api/invoices/route.ts:22:5)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Module._compile (node:internal/modules/cjs/loader:1364:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+    at Module.load (node:internal/modules/cjs/loader:1203:32)
+    at Module._load (node:internal/modules/cjs/loader:1019:12)
+    at async /home/firman/app/node_modules/next/dist/server/require.js:94:12
+    at async /home/firman/app/node_modules/next/dist/server/load-components.js:59:17
+    at async /home/firman/app/node_modules/next/dist/build/utils.js:1172:5
+    at async Span.traceAsyncFn (/home/firman/app/node_modules/next/dist/trace/trace.js:154:20)
+
+Retrying request (attempt 1/3)
+Retrying request (attempt 1/3)
+Retrying request (attempt 1/3)
+Retrying request (attempt 1/3)
+WARN  prisma:query SELECT "public"."User"."id" FROM "public"."User" WHERE 1=1
+WARN  prisma:query SELECT "public"."User"."id" FROM "public"."User" WHERE 1=1
+WARN  prisma:query SELECT "public"."User"."id" FROM "public"."User" WHERE 1=1
+
+Error: connect ECONNREFUSED 127.0.0.1:5432
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1607:16)
+    at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)
+    at __node_internal_exceptionWithHostPort (node:internal/errors:671:12)
+    at /home/firman/app/node_modules/pg-pool/index.js:45:11
+    at /home/firman/app/node_modules/pg/lib/client.js:132:19
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)

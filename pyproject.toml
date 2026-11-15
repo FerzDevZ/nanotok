@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nanotok"
+version = "3.0.0"
+description = "Ultra-high-density token compression engine and CLI toolkit for agentic coding workflows"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "nanotok maintainers" }]
+keywords = ["llm", "tokens", "prompt-compression", "cli", "agentic", "vibecoding"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Utilities",
+]
+dependencies = []
+
+[project.scripts]
+nanotok = "nanotok.cli:entrypoint"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "mypy>=1.10", "ruff>=0.6"]
+
+[tool.setuptools]
+packages = ["nanotok"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["error"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "C4", "RET", "RUF"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["nanotok"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["nanotok"]
+strict = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
